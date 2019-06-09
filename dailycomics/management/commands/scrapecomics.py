@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
+from django.utils import timezone
 
 from io import StringIO
-from datetime import date
 
 from lxml import etree
 import requests
@@ -39,14 +39,14 @@ class Command(BaseCommand):
     def scrape_pearls_before_swine_comic(self):
         PEARLSBEFORESWINE_URL = 'https://www.gocomics.com/pearlsbeforeswine/'
         PEARLSBEFORESWINE_XPATH = 'body//picture[@class=\'item-comic-image\']/img'
-        today = date.today()
+        today = timezone.localtime().date()
         url = PEARLSBEFORESWINE_URL + today.strftime('%Y/%m/%d')
         return self.generic_scrape(url, PEARLSBEFORESWINE_XPATH)
 
     def scrape_bc_comic(self):
         BC_URL = 'https://www.gocomics.com/bc/'
         BC_XPATH = 'body//picture[@class=\'item-comic-image\']/img'
-        today = date.today()
+        today = timezone.localtime().date()
         url = BC_URL + today.strftime('%Y/%m/%d')
         return self.generic_scrape(url, BC_XPATH)
 
@@ -58,4 +58,4 @@ class Command(BaseCommand):
             ('BC', self.scrape_bc_comic())
         ]
         for comic_strip in comics:
-            ComicStrip(series_name=comic_strip[0], strip_url=comic_strip[1], date=date.today()).save()
+            ComicStrip(series_name=comic_strip[0], strip_url=comic_strip[1], date=timezone.localtime().date()).save()
