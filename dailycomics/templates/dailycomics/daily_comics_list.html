@@ -1,17 +1,41 @@
 <html>
+    <head>
+        <style>
+            body {
+                background-color: #e4e5da;
+            }
+            img {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .inline-block-child {
+                display: inline-block;
+                padding: 20px;
+            }
+            .center {
+                margin: auto;
+                width: 50%;
+                text-align: center;
+            }
+            .comic-title {
+                font-weight: bold;
+            }
+        </style>
+    </head>
     <body>
-        <h1>Daily Comics</h1>
-        <nav>
-            <a href="{% url 'comics-for-day' previous_day %}">Previous</a>
-            <h2>{{ chosen_day|date:"N d, Y" }}</h2>
-            <a href="{% url 'comics-for-day' next_day %}">Next</a>
-        </nav>
+        <h1 class="center">Daily Comics</h1>
+        <div class="center">
+            <a class="inline-block-child" href="{% url 'comics-for-day' previous_day %}">Previous</a>
+            <h2 class="inline-block-child">{{ chosen_day|date:"N d, Y" }}</h2>
+            <a class="inline-block-child" href="{% url 'comics-for-day' next_day %}">Next</a>
+        </div>
         <div id="comic-strips">
         {% for comic_strip in comics %}
-            <p>{{ comic_strip.series_name }}</p>
+            <p class="center comic-title">{{ comic_strip.series_name }}</p>
             <img src="{{ comic_strip.strip_url }}" width="900" height="280">
         {% empty %}
-            <p>Sorry, there are no comic strips for that day.</p>
+            <p>Sorry, there are no comic strips for this day.</p>
         {% endfor %}
         </div>
     </body>
