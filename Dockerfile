@@ -18,7 +18,6 @@ RUN apk add --update --no-cache g++ libxslt-dev libxml2-dev tzdata && \
   apk del tzdata g++ && \
   chmod 0644 /etc/cron.d/dailycomics-cron && \
   crontab /etc/cron.d/dailycomics-cron && \
-  crond -b && \
   mkdir /var/dailycomics && \
   python manage.py migrate
 
@@ -26,4 +25,4 @@ VOLUME ["/var/dailycomics"]
 
 EXPOSE 8000
 
-CMD ["gunicorn", "dailycomicsproject.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "1"]
+CMD ["sh", "-c", "crond -b -l 2 && gunicorn dailycomicsproject.wsgi:application --bind 0.0.0.0:8000 --workers 1 "]
