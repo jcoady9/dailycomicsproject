@@ -1,0 +1,2 @@
+# Make sure the sqlite db for dev doesn't get added to container
+db.sqlite3
