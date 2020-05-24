@@ -23,6 +23,8 @@ ADD dailycomics-cron /etc/cron.d/dailycomics-cron
 
 COPY --from=packagesbuilder /install /usr/local
 
+COPY --from=packagesbuilder /usr/lib /usr/lib
+
 COPY . /dailycomicsproject
 
 WORKDIR /dailycomicsproject
