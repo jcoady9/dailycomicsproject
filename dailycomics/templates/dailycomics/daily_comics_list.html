@@ -31,12 +31,18 @@
             <a class="inline-block-child" href="{% url 'comics-for-day' next_day %}">Next</a>
         </div>
         <div id="comic-strips">
-        {% for comic_strip in comics %}
-            <p class="center comic-title">{{ comic_strip.series_name }}</p>
-            <img src="{{ comic_strip.strip_url }}" width="900" height="280">
-        {% empty %}
-            <p>Sorry, there are no comic strips for this day.</p>
-        {% endfor %}
+            <div class="center">
+                <form action="{% url 'scrape-comics' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="Submit" value="Scrape">
+                </form>
+            </div>
+            {% for comic_strip in comics %}
+                <p class="center comic-title">{{ comic_strip.series_name }}</p>
+                <img src="{{ comic_strip.strip_url }}" width="900" height="280">
+            {% empty %}
+                <p>Sorry, there are no comic strips for this day.</p>
+            {% endfor %}
         </div>
     </body>
 </html>
