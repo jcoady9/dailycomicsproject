@@ -1,4 +1,4 @@
 Django==2.2.10
 requests==2.22.0
-lxml==4.3.3
+lxml==4.6.3
 gunicorn==19.9.0
