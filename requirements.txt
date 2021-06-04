@@ -1,4 +1,4 @@
-Django==2.2.18
+Django==2.2.21
 requests==2.22.0
 lxml==4.6.3
 gunicorn==19.9.0
